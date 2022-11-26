@@ -1,0 +1,131 @@
+\documentclass{report}
+
+\input{preamble}
+\input{macros}
+\input{letterfonts}
+\usepackage{hyperref} 
+
+\title{\Huge{Complex Analysis}}
+\author{\huge{Toby Martiny}}
+\date{11/19/2022}
+
+\begin{document}
+
+\maketitle
+\newpage% or \cleardoublepage
+% \pdfbookmark[<level>]{<title>}{<dest>}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
+
+
+
+\section{Introduction}
+    These are my notes for Complex Analysis. I'm using Advanced Engineering Mathematics by Greenberg as a textbook (\href{https://library.uoh.edu.iq/admin/ebooks/34632-greenberg---advanced-engineering-mathematics-(1999).pdf}{.pdf})
+
+\setcounter{chapter}{1}
+\chapter{Differential Equations of the First Order}
+    \setcounter{section}{4}
+    \section{Exact Equations and Integrating Factors - 11/19/2022}https://www.overleaf.com/project/63788f5a1f2ae957662953b5
+        To solve a homogeneous equations that isn't exact, we must use an integrating factor to make it become exact.
+        $\sigma(x,y)$
+        \begin{equation}
+             M(x,y)dx + N(x,y)dy = 0 
+        \end{equation}
+        \begin{equation}
+             \sigma(x,y)\cdot(M(x,y)dx + N(x,y)dy) = 0
+        \end{equation}
+        for the ODE to be exact, it must satisfy:
+        \begin{equation}
+            \label{2.5partials}
+            \frac{\partial }{\partial y} \left( \sigma M \right) =
+            \frac{\partial }{\partial x} \left( \sigma N \right)
+        \end{equation}
+        Note: Recall that being an exact ODE implies that there exists an $\nabla \cdot f(x) = \left\langle f_x, f_y \right\rangle = \left\langle M, N \right\rangle$ \linebreak 
+        Taking the partial derivative of (\ref{2.5partials}) gives us:
+        \begin{equation}
+            \sigma M_y + \sigma_y M = \sigma N_x + \sigma_x N
+        \end{equation}
+        Lets check if $\sigma$ works as a function of a single variable (ie. $\sigma(x)$ or $\sigma(y)$ instead of $\sigma(x, y)$). To perform the check, we assume that it's true and see if there's a contradiction. Assuming $\sigma$ is a function of only x, $\sigma_y = 0$. therefor:
+        \begin{equation}
+            \sigma M_y = \sigma N_x + \sigma_x N
+        \end{equation}
+        \begin{equation}
+            \sigma_x  = 
+            \frac{\partial \sigma}{\partial x} = 
+            \frac{\sigma(M_y - N_x)}{N} 
+        \end{equation}
+        \begin{equation}
+            \sigma = e^{\textstyle  (\int \frac{\sigma(M_y - N_x)}{N} \,dx)}
+        \end{equation}
+        Then, assuming $\sigma$ is a function of only y, $\sigma_x = 0$:
+        \begin{equation}
+            \sigma M_y + \sigma_y M = \sigma N_x
+        \end{equation}
+        \begin{equation}
+            \sigma_y  = 
+            \frac{\partial \sigma}{\partial y} = 
+            \frac{\sigma(N_x - M_y)}{M} 
+        \end{equation}
+        \begin{equation}
+            \sigma = e^{\textstyle  (\int \frac{(N_x - M_y)}{M}  \,dy)}
+        \end{equation}
+        EXAMPLE: solve $dx + (3x-e^{-2y}dy) = 0$
+        \begin{equation}
+            M = 1, N = 3x-e^{-2y}
+        \end{equation}
+        \begin{equation}
+            \frac{(M_y - N_x)}{N} = \frac{0 - 3}{3x-e^{-2y}} \neq \text{function of x alone}
+        \end{equation}
+        \begin{equation}
+            \frac{(N_x - M_y)}{M} = \frac{3 - 0}{1} = 3 = \text{function of y alone}
+        \end{equation}
+        \begin{equation}
+            \sigma = 
+            e^{\textstyle  (\int \frac{\sigma(N_x - M_y)}{M}  \,dy)} = 
+            e^{3y}
+        \end{equation}
+        If you are still confused watch this \href{https://www.youtube.com/watch?v=UXMTYfQfU-c}{video} for another example
+        
+            
+    
+        
+        
+        % to determine what $\sigma(x,y)$ is, 
+
+
+\newpage
+\newpage  
+ 
+
+\chapter{Linear ODE's Second Order and Higher}  
+    \setcounter{section}{3}
+    \section{Solution of Homogeneous Equations: Constant Coefficients}
+        To solve an ODE in the form
+        \begin{align}
+            y''+2y'+y = 0 \\
+            y(x) = e^{\lambda x} \\
+            e^{\lambda x} (\lambda^{2} + 2\lambda + \lambda) = 0 \\
+            (\lambda + 1)^{2} = 0 \\
+            \lambda = -1
+        \end{align}
+        We need the number of linear independent solutions to be the same as the order of the differential equation to have a complete general solution (refer back to section 3.1 if confused). In this case, we only have one solution: $y_1(x) = C_1e^{-x}$. So we just need to find another linearly independent  solution (in terms of differentiation). An easy option is $y_2(x) = A(x)e^{-x}$. 
+
+        The only part of the solution that can change is the coefficient, because $\lambda = -1$ only. So The only way to avoid the second solution being absorbed by the first is to make the coefficient into a variable which differentiates different from a constant.
+
+        Plugging in $y_2(x) = A(x)e^{-x}$, we get:
+        \begin{align}
+            y''+2y'+y = 0 \\
+            A(x)e^{-x} + 2(A'(x)e^{-x} - A(x)e^{-x}) + (A''(x)e^{-x} - A'(x)e^{-x} - (A'(x)e^{-x} - A(x)e^{-x})) = 0 \\
+            e^{-x}(A(x) + 2A'(x) - 2A(x) + A''(x) - A'(x) - A'(x) + A(x)) = 0 \\
+            A''(x) = 0 \\
+            A'(x) = C_1 \\
+            A(x) = C_2 + C_1x
+        \end{align}
+            
+        
+        
+    \section{General Notes}
+        Reccati Equation: \url{https://www.youtube.com/watch?v=-SHQ1FMyqIo}
+
+\end{document}
